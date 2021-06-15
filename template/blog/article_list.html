@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{%static 'img/home-bg.jpg' %}')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Clean Blog</h1>
+          <span class="subheading">A Blog Theme by Start Bootstrap</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% endblock %}
+{% block content %}
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+       {% for article in object_list %}
+        <div class="post-preview">
+          <a href="{% url 'blog:detail_article' article.slug %}">
+            <h2 class="post-title">
+              {{article.title}}
+            </h2>
+          </a>
+          <p>{{article.description|truncatewords:3}}</p>
+          <p class="post-meta">Posted by
+            <a href="{% url 'blog:author' article.author %}">{{article.author.get_full_name}}</a>
+            {{article.jpublish}}</article></p>
+            <div>
+              {% for cat in article.category_published.all %}
+                <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
+              {% endfor %}
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+        
+        <!-- Pager -->
+        {% if page_obj.has_other_pages %}
+
+        <div class="clearfix pager-botton">
+          {% if page_obj.has_previous %} 
+             <a class="btn btn-primary float-right ml-3" href="{% url 'blog:home' page_obj.previous_page_number %}">پست های جدید &rarr;</a>
+          {% endif %}
+          {% if page_obj.has_next %}  
+              <a class="btn btn-primary float-right" href="{% url 'blog:home' page_obj.next_page_number %}">پست های قدیمی &larr;</a>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

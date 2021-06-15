@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{%static 'img/home-bg.jpg' %}')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Clean Blog</h1>
+          <span class="subheading">A Blog Theme by Start Bootstrap</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% endblock %}
+{% block content %}
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+       {% for article in category.articles.published %}
+        <div class="post-preview">
+          <a href="{% url 'blog:detail_article' article.slug %}">
+            <h2 class="post-title">
+              {{article.title}}
+            </h2>
+          </a>
+          <p>{{article.description|truncatewords:50}}</p>
+          <p class="post-meta">Posted by
+            <a href="#">hanieh_mav</a>
+            {{article.jpublish}}</article></p>
+            <div>
+              {% for cat in article.category_published.all %}
+                <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
+              {% endfor %}
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+        
+        <!-- Pager -->
+        <div class="clearfix pager-botton">
+          <a class="btn btn-primary float-right" href="#">پست های قدیمی &larr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

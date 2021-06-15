@@ -1,0 +1,57 @@
+{% extends 'registration/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} {% block title-meta %} لیست مقالات {% endblock %} {% endblock %}
+
+{% block content %} 
+<div class="col-md-12">
+<div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title mb-0 float-left" style="text-align: right;">افزودن مقاله</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="row">
+            <div class="col-6 ">
+              {{ form.title|as_crispy_field }}
+            </div>
+            <div class="col-12 ">
+                {{ form.description|as_crispy_field }}
+            </div>
+            <div class="col-6 ">
+                {{ form.category|as_crispy_field }}
+            </div>
+            <div class="col-6 ">
+                {{ form.thumbnail|as_crispy_field }}
+                {{ form.publish|as_crispy_field }}
+            </div>
+            <div class="col-6 ">
+                {{ form.slug|as_crispy_field }}
+            </div>
+            {% if user.is_superuser %}
+                <div class="col-6 ">
+                    {{ form.status|as_crispy_field }}
+                </div>
+                <div class="col-6 ">
+                  {{ form.author|as_crispy_field }}
+                </div>
+            {% endif %}
+            <div class="col-6 ">
+              {{ form.is_special|as_crispy_field }}
+            </div>
+        </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary">ارسال مقاله</button>
+         {% if user.is_superuser and request.resolver_match.kwargs.pk %}
+         <a href="{% url 'accounts:delete' request.resolver_match.kwargs.pk %}"  class="btn btn-danger">حذف</a>
+         {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

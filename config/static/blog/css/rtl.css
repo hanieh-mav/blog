@@ -1,0 +1,23 @@
+body {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Sahel';
+    font-size: 14px;
+}
+
+
+
+.navbar-nav {
+    margin-left: initial !important;
+    margin-right: auto;
+}
+
+
+
+.post-meta  {
+    text-align: left;
+}
+
+.pager-botton {
+    margin-right: auto;
+}

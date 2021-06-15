@@ -1,0 +1,51 @@
+{% extends 'base.html'  %}
+
+{% block header %}
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{{article.thumbnail.url}}')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
+          <h1>{{article.title}}</h1>
+          <span class="meta">Posted by
+            <a href="{% url 'blog:author' article.author %}">{{article.author.get_full_name}}</a>
+            {{article.jpublish}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% endblock %}
+
+{% block content %}
+
+ <!-- Post Content -->
+<article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <p>
+            {% if object.is_special %}
+              {% if user.is_authenticated and user.is_special_user or user == object.author or user.is_superuser %}
+              {{article.description|safe}}
+              {% else %}
+              <P> این مقاله ویژه است برای خرید اشتراک <a href="#">اینجا</a>کلیک کنید</P>
+              {% endif %}
+            {% else %}
+              {{article.description|safe}}
+            {% endif %}  
+          </p>
+        </div>
+      </div>
+    </div>
+</article>
+
+<hr>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'registration/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} {% block title-meta %} پروفایل{% endblock %} {% endblock %}
+
+{% block content %} 
+<div class="col-md-12">
+<div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title mb-0 float-left" style="text-align: right;">افزودن مقاله</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="row">
+            <div class="col-6 ">
+              {{ form.username|as_crispy_field }}
+            </div>
+            <div class="col-6 ">
+                {{ form.email|as_crispy_field }}
+            </div>
+            <div class="col-6 ">
+                {{ form.first_name|as_crispy_field }}
+            </div>
+            <div class="col-6 ">
+                {{ form.last_name|as_crispy_field }}
+            </div>
+            <div class="col-6 ">
+                {{ form.special_user|as_crispy_field }}
+            </div>
+         
+            <div class="col-6 ">
+              {{ form.is_author|as_crispy_field }}
+            </div>
+        </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <button type="submit" class="btn btn-success">ویرایش اطلاعات</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
